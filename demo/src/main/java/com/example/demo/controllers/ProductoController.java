@@ -24,18 +24,18 @@ public class ProductoController {
     }
 
     @PostMapping("alta")
-    public ResponseEntity<String> agregar(@RequestBody Producto producto){
-        return (this.productoService.addProducto(producto));
+    public ResponseEntity<String> add(@RequestBody Producto producto){
+        return (this.productoService.addProduct(producto));
     }
 
     @PutMapping("modificar/{id}")
     public ResponseEntity<String> update(@PathVariable Long id, @RequestBody Producto producto){
-        return this.productoService.modificar(id,producto);
+        return this.productoService.update(id,producto);
     }
 
     @DeleteMapping("baja/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id){
-       return this.productoService.eliminar(id);
+       return this.productoService.delete(id);
     }
 
 
