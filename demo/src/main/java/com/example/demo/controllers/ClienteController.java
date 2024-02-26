@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.SimpleTimeZone;
 
 @RestController
+@RequestMapping(path = "api/cliente")
 public class ClienteController {
 
     @Autowired
@@ -17,18 +18,18 @@ public class ClienteController {
 
 
 
-    @GetMapping("cliente/obtener")
+    @GetMapping("obtener")
     public List<Cliente> getClientes(){
         return repo.findAll();
     }
 
-    @PostMapping("cliente/alta")
+    @PostMapping("alta")
     public String post(@RequestBody Cliente cliente){
         repo.save(cliente);
         return "Guardado";
     }
 
-    @PutMapping("cliente/modificar/{id}")
+    @PutMapping("modificar/{id}")
     public String update(@PathVariable Long id, @RequestBody Cliente cliente){
         Cliente updateCliente = repo.findById(id).get();
         updateCliente.setNombre(cliente.getNombre());
@@ -38,7 +39,7 @@ public class ClienteController {
         return "Cliente modificado";
     }
 
-    @DeleteMapping("cliente/baja/{id}")
+    @DeleteMapping("/baja/{id}")
     public String delete(@PathVariable Long id){
         Cliente clienteDelete = repo.findById(id).get();
         repo.delete(clienteDelete);

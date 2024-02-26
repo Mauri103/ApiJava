@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping(path = "api/venta")
 public class VentaController {
 
     @Autowired
@@ -17,19 +18,19 @@ public class VentaController {
     private Venta venta;
 
 
-    @GetMapping("venta/obtener")
+    @GetMapping("obtener")
     public List<Venta> getVentas(){
         return repo.findAll();
     }
 
-    @PostMapping("venta/alta")
+    @PostMapping("alta")
     public String post(@RequestBody Venta venta){
         repo.save(venta);
         return "Venta guardada";
     }
 
 
-    @PutMapping("venta/modificar/{id}")
+    @PutMapping("modificar/{id}")
     public String update(@PathVariable Long id, @RequestBody Venta venta){
         Venta updateVenta = repo.findById(id).get();
         updateVenta.setMontoTotal(venta.getMontoTotal());
@@ -38,7 +39,7 @@ public class VentaController {
         return "Venta modificada";
     }
 
-    @DeleteMapping("venta/baja/{id}")
+    @DeleteMapping("baja/{id}")
     public String delete(@PathVariable Long id){
         Venta ventaDelete = repo.findById(id).get();
         repo.delete(ventaDelete);

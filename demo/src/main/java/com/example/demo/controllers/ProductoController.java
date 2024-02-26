@@ -2,44 +2,40 @@ package com.example.demo.controllers;
 
 import com.example.demo.models.Producto;
 import com.example.demo.repository.ProductoRepository;
+import com.example.demo.services.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping(path = "api/producto")
 public class ProductoController {
 
     @Autowired
+    private ProductoService productoService;
     private ProductoRepository repo;
     private Producto producto;
 
 
-    @GetMapping("producto/obtener")
-    public List<Producto> getProductos(){
-        return repo.findAll();
+    @GetMapping("obtener")
+    public List<Producto> obtener(){
+        return this.productoService.listar();
     }
 
-    @PostMapping("producto/alta")
-    public String post(@RequestBody Producto producto){
-        repo.save(producto);
-        return "Producto guardado";
+    @PostMapping("alta")
+    public ResponseEntity<String> agregar(@RequestBody Producto producto){
+        return (this.productoService.addProducto(producto));
     }
 
-    @PutMapping("producto/modificar/{id}")
-    public String update(@PathVariable Long id, @RequestBody Producto producto){
-        Producto updateProdcuto = repo.findById(id).get();
-        updateProdcuto.setDescripcion(producto.getDescripcion());
-        updateProdcuto.setPrecio(producto.getPrecio());
-        updateProdcuto.setStock(producto.getStock());
-        repo.save(updateProdcuto);
-        return "Producto modificado";
+    @PutMapping("modificar/{id}")
+    public ResponseEntity<String> update(@PathVariable Long id, @RequestBody Producto producto){
+        return this.productoService.modificar(id,producto);
     }
 
-    @DeleteMapping("producto/baja/{id}")
-    public String delete(@PathVariable Long id){
-        Producto productoDelete = repo.findById(id).get();
-        repo.delete(productoDelete);
-        return "Producto eliminado";
+    @DeleteMapping("baja/{id}")
+    public ResponseEntity<String> delete(@PathVariable Long id){
+       return this.productoService.eliminar(id);
     }
 
 
