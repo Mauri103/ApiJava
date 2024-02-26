@@ -14,8 +14,6 @@ public class ProductoController {
 
     @Autowired
     private ProductoService productoService;
-    private ProductoRepository repo;
-    private Producto producto;
 
 
     @GetMapping("obtener")

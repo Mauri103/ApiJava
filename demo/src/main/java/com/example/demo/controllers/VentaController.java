@@ -1,10 +1,13 @@
 package com.example.demo.controllers;
 
 
+import com.example.demo.models.Cliente;
 import com.example.demo.models.Producto;
 import com.example.demo.models.Venta;
 import com.example.demo.repository.VentaRepository;
+import com.example.demo.services.VentaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,36 +17,29 @@ import java.util.List;
 public class VentaController {
 
     @Autowired
-    private VentaRepository repo;
-    private Venta venta;
+    private VentaService ventaService;
+
 
 
     @GetMapping("obtener")
-    public List<Venta> getVentas(){
-        return repo.findAll();
+    public List<Venta> obtenerVenta(){
+        return this.ventaService.listSell();
     }
 
     @PostMapping("alta")
-    public String post(@RequestBody Venta venta){
-        repo.save(venta);
-        return "Venta guardada";
+    public ResponseEntity<String> addSell(@RequestBody Venta venta){
+        return (this.ventaService.addSell(venta));
     }
 
 
     @PutMapping("modificar/{id}")
-    public String update(@PathVariable Long id, @RequestBody Venta venta){
-        Venta updateVenta = repo.findById(id).get();
-        updateVenta.setMontoTotal(venta.getMontoTotal());
-        updateVenta.setCliente(venta.getCliente());
-        repo.save(updateVenta);
-        return "Venta modificada";
+    public ResponseEntity<String> updateClient(@PathVariable Long id, @RequestBody Venta venta){
+        return this.ventaService.updateSell(id,venta);
     }
 
     @DeleteMapping("baja/{id}")
-    public String delete(@PathVariable Long id){
-        Venta ventaDelete = repo.findById(id).get();
-        repo.delete(ventaDelete);
-        return "Venta eliminada";
+    public ResponseEntity<String> deleteSell(@PathVariable Long id){
+        return this.ventaService.deleteSell(id);
     }
 
 }

@@ -2,7 +2,9 @@ package com.example.demo.models;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "cliente")
@@ -20,7 +22,8 @@ public class Cliente {
     @Column(name = "email")
     private String email;
 
-
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    private List<Venta> ventas = new ArrayList<>();
 
     public String getNombre() {
         return nombre;

@@ -2,6 +2,7 @@ package com.example.demo.models;
 
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -19,17 +20,9 @@ public class Venta {
     @JoinColumn(name = "id_cliente")
     private Cliente cliente;
 
-    @ManyToMany(mappedBy = "ventas")
-    private Set<Producto> productos;
+    @OneToMany(mappedBy = "venta", fetch=FetchType.EAGER,  cascade = CascadeType.ALL)
+    private List<DetalleVenta> detalleVenta;
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public int getMontoTotal() {
         return montoTotal;

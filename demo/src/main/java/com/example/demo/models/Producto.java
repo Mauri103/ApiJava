@@ -22,9 +22,7 @@ public class Producto {
     @Column(name = "precio")
     private int precio;
 
-    @ManyToMany
-    @JoinTable(name = "venta_producto", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name= "idProducto"))
-    private Set<Venta> ventas;
+
 
     public Long getId() {
         return id;
