@@ -18,12 +18,12 @@ public class ProductoService {
         repositorio.save(producto);
         return ResponseEntity.status(200).body("200 -> Operacion Satisfactoria!\n");
     }
-    public List<Producto> listar(){
+    public List<Producto> listProduct(){
         return repositorio.findAll();
 
     }
 
-    public ResponseEntity<String> update(Long id, Producto producto){
+    public ResponseEntity<String> updateProduct(Long id, Producto producto){
         Producto updateProdcuto = repositorio.findById(id).get();
         updateProdcuto.setDescripcion(producto.getDescripcion());
         updateProdcuto.setPrecio(producto.getPrecio());
@@ -32,7 +32,7 @@ public class ProductoService {
         return ResponseEntity.status(200).body("200 -> Operacion Satisfactoria!\n");
     }
 
-    public ResponseEntity<String> delete(Long id){
+    public ResponseEntity<String> deleteProduct(Long id){
         Producto productoDelete = repositorio.findById(id).get();
         repositorio.delete(productoDelete);
         return ResponseEntity.status(200).body("200 -> Operacion Satisfactoria!\n");

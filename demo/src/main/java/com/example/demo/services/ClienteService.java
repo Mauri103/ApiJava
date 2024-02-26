@@ -1,7 +1,6 @@
 package com.example.demo.services;
 
 import com.example.demo.models.Cliente;
-import com.example.demo.models.Producto;
 import com.example.demo.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

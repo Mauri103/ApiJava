@@ -1,7 +1,6 @@
 package com.example.demo.controllers;
 
 import com.example.demo.models.Producto;
-import com.example.demo.repository.ProductoRepository;
 import com.example.demo.services.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,23 +16,23 @@ public class ProductoController {
 
 
     @GetMapping("obtener")
-    public List<Producto> obtener(){
-        return this.productoService.listar();
+    public List<Producto> obtenerProduct(){
+        return this.productoService.listProduct();
     }
 
     @PostMapping("alta")
-    public ResponseEntity<String> add(@RequestBody Producto producto){
+    public ResponseEntity<String> addProduct(@RequestBody Producto producto){
         return (this.productoService.addProduct(producto));
     }
 
     @PutMapping("modificar/{id}")
-    public ResponseEntity<String> update(@PathVariable Long id, @RequestBody Producto producto){
-        return this.productoService.update(id,producto);
+    public ResponseEntity<String> updateProduct(@PathVariable Long id, @RequestBody Producto producto){
+        return this.productoService.updateProduct(id,producto);
     }
 
     @DeleteMapping("baja/{id}")
-    public ResponseEntity<String> delete(@PathVariable Long id){
-       return this.productoService.delete(id);
+    public ResponseEntity<String> deleteProduct(@PathVariable Long id){
+       return this.productoService.deleteProduct(id);
     }
 
 

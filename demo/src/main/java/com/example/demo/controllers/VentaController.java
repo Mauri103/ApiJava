@@ -1,10 +1,7 @@
 package com.example.demo.controllers;
 
 
-import com.example.demo.models.Cliente;
-import com.example.demo.models.Producto;
 import com.example.demo.models.Venta;
-import com.example.demo.repository.VentaRepository;
 import com.example.demo.services.VentaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
