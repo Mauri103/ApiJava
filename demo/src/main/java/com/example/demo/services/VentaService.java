@@ -39,8 +39,7 @@ public class VentaService {
         }
         List<Long> productIds = detalleFactura.getProductIds();
         List<Producto> foundProducts;
-        if (detalleFactura.getProductIds() != null && !detalleFactura.getProductIds().isEmpty()) {
-            // List<Long> productIdsIterable = saleRequest.getProductIds();
+        if (detalleFactura.getProductIds() != null || !detalleFactura.getProductIds().isEmpty()) {
             foundProducts = ProductoService.getProductsByIds(productIds);
         } else {
             return null;
@@ -48,13 +47,18 @@ public class VentaService {
 
         List<Producto> saleProducts  = new ArrayList<>();;
 
-        for (Long productId : productIds) {
-            for (Producto producto : foundProducts) {
-                if (producto.getId() == productId) {
-                    saleProducts.add(producto);
+        if (foundProducts == null || foundProducts.isEmpty()){
+            return null;
+        }else{
+            for (Long productId : productIds) {
+                for (Producto producto : foundProducts) {
+                    if (producto.getId() == productId) {
+                        saleProducts.add(producto);
+                    }
                 }
             }
         }
+
 
         double saleTotal = saleProducts.stream()
                 .mapToDouble(Producto::getPrecio)
@@ -68,13 +72,8 @@ public class VentaService {
         sale.setQuantity(detalleFactura.getProductIds().size());
         sale.setMontoTotal(saleTotal);
         return repositorio.save(sale);
+
     }
-
-    /*public ResponseEntity<String> addSell(Venta venta){
-        repositorio.save(venta);
-        return ResponseEntity.status(200).body("200 -> Operacion Satisfactoria!\n");
-
-    }*/
 
     public Optional<Venta> getSaleById(Long id) {
         return repositorio.findById(id);
@@ -83,13 +82,6 @@ public class VentaService {
         return repositorio.findAll();
     }
 
-    public ResponseEntity<String> updateSell(Long id, Venta venta){
-        Venta updateSell = repositorio.findById(id).get();
-        updateSell.setMontoTotal(venta.getMontoTotal());
-        updateSell.setCliente(venta.getCliente());
-        repositorio.save(updateSell);
-        return ResponseEntity.status(200).body("200 -> Operacion Satisfactoria!\n");
-    }
 
     public ResponseEntity<String> deleteSell(Long id){
         Venta deleteSell = repositorio.findById(id).get();
