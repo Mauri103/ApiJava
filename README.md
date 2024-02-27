@@ -9,7 +9,8 @@
 
 #### MySQL
 - Puerto: 3306
-
+- Usuario: root
+- Debe ya estar creada la BD
 
 ### Rutas:
 - localhost:8008/api/cliente/obtener: Lista la tabla entera de clientes
