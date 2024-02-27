@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClienteService {
@@ -26,7 +27,6 @@ public class ClienteService {
     public ResponseEntity<String> updateClient(Long id, Cliente cliente){
         Cliente updateCient = repositorio.findById(id).get();
         updateCient.setNombre(cliente.getNombre());
-        updateCient.setApellido(cliente.getApellido());
         updateCient.setEmail(cliente.getEmail());
         repositorio.save(updateCient);
         return ResponseEntity.status(200).body("200 -> Operacion Satisfactoria!\n");
@@ -37,6 +37,11 @@ public class ClienteService {
         repositorio.delete(deleteClient);
         return ResponseEntity.status(200).body("200 -> Operacion Satisfactoria!\n");
     }
+
+    public Optional<Cliente> getClientById(Long id) {
+        return repositorio.findById(id);
+    }
+
 
 }
 

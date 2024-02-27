@@ -2,6 +2,7 @@ package com.example.demo.models;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -10,26 +11,31 @@ import java.util.Set;
 public class Venta {
 
     @Id
-    @GeneratedValue
-    private Long id;
-
-    @Column(name = "montoTotal")
-    private int montoTotal;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id_venta;
 
     @ManyToOne
-    @JoinColumn(name = "id_cliente")
+    @JoinColumn(name = "client_id", nullable = false)
     private Cliente cliente;
 
-    @OneToMany(mappedBy = "venta", fetch=FetchType.EAGER,  cascade = CascadeType.ALL)
-    private List<DetalleVenta> detalleVenta;
+    @ManyToMany
+    @JoinTable(
+            name = "venta_producto",
+            joinColumns = @JoinColumn(name = "venta_id"),
+            inverseJoinColumns = @JoinColumn(name = "producto_id")
+    )
 
+    private List<Producto> productos;
+    private LocalDateTime date;
+    private int quantity;
+    private double montoTotal;
 
-    public int getMontoTotal() {
-        return montoTotal;
+    public Long getId() {
+        return id_venta;
     }
 
-    public void setMontoTotal(int montoTotal) {
-        this.montoTotal = montoTotal;
+    public void setId(Long id) {
+        this.id_venta = id;
     }
 
     public Cliente getCliente() {
@@ -38,5 +44,37 @@ public class Venta {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public List<Producto> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(List<Producto> productos) {
+        this.productos = productos;
+    }
+
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public double getMontoTotal() {
+        return montoTotal;
+    }
+
+    public void setMontoTotal(double montoTotal) {
+        this.montoTotal = montoTotal;
     }
 }

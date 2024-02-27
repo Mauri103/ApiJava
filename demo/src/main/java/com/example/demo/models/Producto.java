@@ -2,6 +2,8 @@ package com.example.demo.models;
 
 import com.example.demo.models.Venta;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.util.Set;
 
@@ -9,27 +11,19 @@ import java.util.Set;
 @Table(name = "producto")
 public class Producto {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    private Long id;
-
-    @Column(name = "descripcion")
+    private Long id_producto;
     private String descripcion;
-
-    @Column(name = "stock")
+    private double precio;
     private int stock;
 
-    @Column(name = "precio")
-    private int precio;
-
-
-
     public Long getId() {
-        return id;
+        return id_producto;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.id_producto = id;
     }
 
     public String getDescripcion() {
@@ -40,6 +34,14 @@ public class Producto {
         this.descripcion = descripcion;
     }
 
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
     public int getStock() {
         return stock;
     }
@@ -47,13 +49,4 @@ public class Producto {
     public void setStock(int stock) {
         this.stock = stock;
     }
-
-    public int getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(int precio) {
-        this.precio = precio;
-    }
-
 }

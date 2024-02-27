@@ -22,6 +22,9 @@ public class ProductoService {
         return repositorio.findAll();
 
     }
+    public List<Producto> getProductsByIds(List<Long> ids) {
+        return repositorio.findAllById(ids);
+    }
 
     public ResponseEntity<String> updateProduct(Long id, Producto producto){
         Producto updateProdcuto = repositorio.findById(id).get();
