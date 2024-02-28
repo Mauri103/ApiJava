@@ -84,9 +84,16 @@ public class VentaService {
 
 
     public ResponseEntity<String> deleteSell(Long id){
-        Venta deleteSell = repositorio.findById(id).get();
-        repositorio.delete(deleteSell);
-        return ResponseEntity.status(200).body("200 -> Operacion Satisfactoria!\n");
+        try{
+            Optional<Venta> deleteSell = repositorio.findById(id);
+            Venta delete = repositorio.findById(id).get();
+            if (deleteSell.isPresent()) {
+                repositorio.delete(delete);
+                return ResponseEntity.status(200).body("200 -> Operacion Satisfactoria!\n");
+            }else return ResponseEntity.status(400).body("400 -> Venta no existe!\n");
+        }catch (Exception e) {
+            return ResponseEntity.status(400).body("400 -> Venta no existe!\n");
+        }
     }
 
     public LocalDateTime getCurrentDateTime() {
